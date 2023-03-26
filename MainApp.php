@@ -170,8 +170,7 @@ class MainApp {
 
     $this->app->add(new HttpBasicAuthentication([
       "users" => [
-          // "root" => '$2y$10$TasF.tPGvI.INyoundtNW.ideRaAZDqHW/c0dELjTjyXq4.A7xAWy'
-          "root" => $_ENV['API_PASSWORD']
+        $_ENV['API_USER'] => $_ENV['API_PASS']
       ]
     ]));
   

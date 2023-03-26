@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class AppTest extends TestCase {
     
-    protected $api_url = "http://penn.test";
+    protected $api_url = "http://localhost:8888";
 
     public function testGetUsers() {
         $url = $this->api_url."/users";
@@ -20,6 +20,9 @@ class AppTest extends TestCase {
 
     function callAPI($method, $url, $data=null){
 
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
+        $dotenv->load();
+  
         $curl = curl_init();
 
         switch ($method){
@@ -44,6 +47,8 @@ class AppTest extends TestCase {
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, $_ENV['API_USER'] . ":" . $_ENV['API_PASS']);  
+
         $result = curl_exec($curl);
         if(!$result){die("Connection Failure");}
         curl_close($curl);
