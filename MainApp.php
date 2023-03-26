@@ -47,8 +47,8 @@ class MainApp {
       $name = $data['name'];
       $email = $data['email'];
 
-      // if (!$name || !$email || strlen($name)>255 || strlen($email)>255)
-      //   return $response->withStatus(500);
+      if (!$name || !$email || strlen($name)>255 || strlen($email)>255)
+        return $response->withStatus(500);
 
       $sql = "insert into users (name, email) VALUES (:name, :email)";
 
