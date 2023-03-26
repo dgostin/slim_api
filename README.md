@@ -41,7 +41,7 @@ Use the public dir as the "web root".
 php -S localhost:8888 -t public
 ```
 
-# Valid endpoints
+## Valid endpoints
 * GET /users: Retrieves a list of all users and their data.
 * POST /users: Creates a new user with an initial points balance of 0.
 * POST /users/{id}/earn: Earns points for a user. The request should include the number of points to earn and a description of the transaction.
