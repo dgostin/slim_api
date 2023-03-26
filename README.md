@@ -65,6 +65,18 @@ curl -v -X POST http://localhost:8888/users \
    -d '{"name": "Joe Jones", "email": "joejones@test.com", "points_balance": 0}' \
    --user "root:abc123"
 
+# Test POST endpoint for earning points
+curl -v -X POST http://localhost:8888/users/10/earn \
+   -H "Content-Type: application/json" \
+   -d '{"points": 10, "description": "Test description"}' \
+   --user "root:abc123"
+
+# Test POST endpoint for redeeming points
+curl -v -X POST http://localhost:8888/users/10/redeem \
+   -H "Content-Type: application/json" \
+   -d '{"points": 2, "description": "Test description"}' \
+   --user "root:abc123"
+
 # Test DELETE endpoint for deleting a user
 curl -v -X DELETE http://localhost:8888/users/6 \
    --user "root:abc123"

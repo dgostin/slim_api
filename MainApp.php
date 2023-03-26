@@ -85,15 +85,20 @@ class MainApp {
       $user_id = $args['id'];
       $txn = $args['txn'];
 
-      if (!in_array($txn, ['earn','redeem'])) {
-        return $response->withStatus(500);
-      }
-
       $data = $request->getParsedBody();
       $points = $data['points'];
-      if ($txn=='redeem') { $points *= -1; }
       $description = $data['description'];
-      
+
+      if (!in_array($txn, ['earn','redeem']) || !is_int($points) || $points<1 || !$description) {
+        $error = array("message" => 'user_id = ' . $user_id . ' points = ' . $points . ' description = '. $description);
+        $response->getBody()->write(json_encode($error));
+        return $response
+          ->withHeader('content-type', 'application/json')
+          ->withStatus(500);
+      }
+
+      if ($txn=='redeem') { $points *= -1; }
+
       $sql1 = "
         insert into transactions (user_id, points, description) 
         VALUES (:user_id, :points, :description)
