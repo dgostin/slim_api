@@ -10,6 +10,10 @@ class MainApp {
 
   public function __construct()
   {
+
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
     $this->app = AppFactory::create();
   
     $this->app->get('/users', function (Request $request, Response $response) {
@@ -166,7 +170,8 @@ class MainApp {
 
     $this->app->add(new HttpBasicAuthentication([
       "users" => [
-          "root" => '$2y$10$TasF.tPGvI.INyoundtNW.ideRaAZDqHW/c0dELjTjyXq4.A7xAWy'
+          // "root" => '$2y$10$TasF.tPGvI.INyoundtNW.ideRaAZDqHW/c0dELjTjyXq4.A7xAWy'
+          "root" => $_ENV['API_PASSWORD']
       ]
     ]));
   
